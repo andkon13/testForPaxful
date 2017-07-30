@@ -1,0 +1,21 @@
+{
+  "name": "andkon/test",
+  "description": "Test work",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Andrey Konenkov",
+      "email": "andkon13@mail.ru"
+    }
+  ],
+  "require": {
+    "twbs/bootstrap": "^3.3.0",
+    "components/jquery": "^2.2"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "ln -sf vendor ../www/vendor"
+    ]
+  }
+}
