@@ -39,6 +39,4 @@ class Security implements ComponentInterface
         // md5 is not security, bit this only test...
         return md5($password . $this->salt);
     }
-
-
 }

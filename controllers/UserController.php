@@ -28,7 +28,6 @@ class UserController extends Controller
         $model = new User($post);
         if ($model->validate() && App::getInstance()->userRepository->save($model)) {
             App::getInstance()->login($model);
-
             $this->redirect('/');
         }
 
