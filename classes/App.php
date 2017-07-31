@@ -136,10 +136,22 @@ class App
     /**
      * @return bool
      */
-    public function isGuest()
+    public function isGuest(): bool
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
+        }
+
+        $hash = $_COOKIE['autoLogin'] ?? null;
+        if ($hash) {
+            $userId = $this->db->select(
+                $this->userRepository->table,
+                ['hash' => $hash],
+                'id, md5(concat(id, "' . $this->security->getSalt() . '") as hash)'
+            )->fetchColumn();
+            if (count($userId)) {
+                $_SESSION['userId'] = $userId[0];
+            }
         }
 
         return (bool)!($_SESSION['userId'] ?? false);

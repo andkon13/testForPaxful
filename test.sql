@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2017-07-31 00:46:10
+Date: 2017-07-31 10:01:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -46,8 +46,14 @@ CREATE TABLE `offers` (
   `max` float NOT NULL,
   `currency_id` int(11) NOT NULL,
   `margin` decimal(10,0) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  KEY `user_id_to_user_id` (`user_id`),
+  KEY `payment_id_to_payment` (`pament_method_id`),
+  KEY `currency_id_toCurrency` (`currency_id`),
+  CONSTRAINT `currency_id_toCurrency` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`),
+  CONSTRAINT `payment_id_to_payment` FOREIGN KEY (`pament_method_id`) REFERENCES `payment_methods` (`id`),
+  CONSTRAINT `user_id_to_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of offers
@@ -78,7 +84,9 @@ CREATE TABLE `payment_methods` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `group_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `group_id_to_method` (`group_id`),
+  CONSTRAINT `group_id_to_method` FOREIGN KEY (`group_id`) REFERENCES `payment_method_groups` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -87,7 +95,7 @@ CREATE TABLE `payment_methods` (
 INSERT INTO `payment_methods` VALUES ('1', '1', 'ms');
 INSERT INTO `payment_methods` VALUES ('2', '1', 'boxX');
 INSERT INTO `payment_methods` VALUES ('3', '2', 'master card');
-INSERT INTO `payment_methods` VALUES ('4', '3', 'visa');
+INSERT INTO `payment_methods` VALUES ('4', '2', 'visa');
 
 -- ----------------------------
 -- Table structure for trades
@@ -99,7 +107,11 @@ CREATE TABLE `trades` (
   `user_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `offer_id_to_offer` (`offer_id`),
+  KEY `user_id_to_user` (`user_id`),
+  CONSTRAINT `offer_id_to_offer` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`id`),
+  CONSTRAINT `user_id_to_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

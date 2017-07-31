@@ -22,6 +22,14 @@ class Security implements ComponentInterface
     private $salt;
 
     /**
+     * @return mixed
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
      * @param string $password
      *
      * @return string
@@ -31,4 +39,6 @@ class Security implements ComponentInterface
         // md5 is not security, bit this only test...
         return md5($password . $this->salt);
     }
+
+
 }
