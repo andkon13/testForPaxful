@@ -55,7 +55,7 @@ class BaseRepository implements RepositoryInterface
      * @param null $order
      * @param null $limit
      *
-     * @return array
+     * @return ModelInterface[]
      */
     public function getAll($order = null, $limit = null): array
     {

@@ -24,17 +24,17 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $offers = App::getInstance()->offerRepository->getList();
-        $users  = array_column($offers, 'user_id');
-        if (count($users)) {
+        $usersId  = array_column($offers, 'user_id');
+        if (count($usersId)) {
             $users = [];
-            foreach (App::getInstance()->userRepository->getByParams(['id' => $users]) as $user) {
-                $users[$user->id] = $user;
+            foreach (App::getInstance()->userRepository->getByParams(['id' => $usersId]) as $user) {
+                $users[$user->getId()] = $user;
             }
         }
 
         $payMethods = [];
         foreach (App::getInstance()->paymentMethodRepository->getAll() as $payMethod) {
-            $payMethods[$payMethod->id] = $payMethod;
+            $payMethods[$payMethod->getId()] = $payMethod;
         }
 
         return $this->render('index', compact('offers', 'users', 'payMethods'));

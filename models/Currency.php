@@ -2,37 +2,39 @@
 /**
  * Created by PhpStorm.
  * User: andkon
- * Date: 30.07.17
- * Time: 14:30
+ * Date: 31.07.17
+ * Time: 23:24
  */
 
 namespace models;
 
-use classes\ConstructTrait;
 use classes\Model;
 use classes\ModelInterface;
 
 /**
- * Class PaymentMethod
+ * Class Currency
  *
  * @package models
  */
-class PaymentMethod extends Model implements ModelInterface
+class Currency extends Model implements ModelInterface
 {
-    public $group_id;
+    /** @var  string */
     public $name;
+    /** @var  float */
+    public $rate;
 
     /**
      * @return bool
      */
     public function validate(): bool
     {
-        if (empty($this->group_id)) {
-            $this->errors['group_id'] = 'GroupId is required';
-        }
-
+        $this->errors = [];
         if (empty($this->name)) {
             $this->errors['name'] = 'Name is required';
+        }
+
+        if (empty($this->rate)) {
+            $this->errors['rate'] = 'Name is required';
         }
 
         return 0 === count($this->errors);

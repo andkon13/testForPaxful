@@ -20,8 +20,6 @@ use classes\ModelInterface;
  */
 class User extends Model implements ModelInterface
 {
-    use ConstructTrait;
-
     public $username;
     public $fullname;
     public $amount;

@@ -17,6 +17,7 @@ use repository\OfferRepository;
  * @property BaseRepository  $userRepository
  * @property OfferRepository $offerRepository
  * @property BaseRepository  $paymentMethodRepository
+ * @property BaseRepository  $currencyRepository
  */
 class App
 {

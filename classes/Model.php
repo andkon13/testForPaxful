@@ -16,6 +16,8 @@ namespace classes;
  */
 abstract class Model
 {
+    use ConstructTrait;
+
     protected $id;
     protected $errors = [];
 
@@ -46,7 +48,7 @@ abstract class Model
     /**
      * @return array
      */
-    public function getAttribs()
+    public function getAttribs(): array
     {
         $fields = get_object_vars($this);
         unset($fields['errors']);

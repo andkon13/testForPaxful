@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2017-07-31 10:01:20
+Date: 2017-07-31 23:33:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,7 +45,7 @@ CREATE TABLE `offers` (
   `min` float NOT NULL,
   `max` float NOT NULL,
   `currency_id` int(11) NOT NULL,
-  `margin` decimal(10,0) NOT NULL,
+  `margin` decimal(10,8) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id_to_user_id` (`user_id`),
   KEY `payment_id_to_payment` (`pament_method_id`),
@@ -58,7 +58,7 @@ CREATE TABLE `offers` (
 -- ----------------------------
 -- Records of offers
 -- ----------------------------
-INSERT INTO `offers` VALUES ('8', '8', '0', '3', '1', '10', '1', '0');
+INSERT INTO `offers` VALUES ('8', '8', '0', '3', '1', '10', '1', '0.10000000');
 
 -- ----------------------------
 -- Table structure for payment_method_groups

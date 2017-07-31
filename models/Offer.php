@@ -19,8 +19,6 @@ use classes\ModelInterface;
  */
 class Offer extends Model implements ModelInterface
 {
-    use ConstructTrait;
-
     public $id;
     public $user_id;
     public $type;

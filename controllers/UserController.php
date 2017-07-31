@@ -47,10 +47,17 @@ class UserController extends Controller
     {
         $post = $this->getPost();
         if (($post['username'] ?? false) && ($post['password'] ?? false)) {
-            $post['password'] = App::getInstance()->security->cryptPassword($post['password']);
-            unset($post['Login']);
             /** @var User[] $user */
-            $user = App::getInstance()->userRepository->getByParams($post, null, 1);
+            $user = App::getInstance()
+                ->userRepository
+                ->getByParams(
+                    [
+                        'username' => $post['username'],
+                        'password' => App::getInstance()->security->cryptPassword($post['password'])
+                    ],
+                    null,
+                    1
+                );
             if ($user) {
                 $user = $user[0];
                 App::getInstance()->login($user);
