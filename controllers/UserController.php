@@ -25,8 +25,10 @@ class UserController extends Controller
     public function actionSignin()
     {
         $post  = $this->getPost();
-        $model = new User($post);
-        if ($model->validate() && App::getInstance()->userRepository->save($model)) {
+        $model = new User();
+        $model->setPassword($post['password'] ?? '');
+        $model->amount = 5; //Every registered user gets complimentary 5 BTC
+        if ($model->load($post) && $model->validate() && App::getInstance()->userRepository->save($model)) {
             App::getInstance()->login($model);
             $this->redirect('/');
         }

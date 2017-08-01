@@ -34,6 +34,30 @@ class User extends Model implements ModelInterface
     }
 
     /**
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function load(array $data): bool
+    {
+        $ref    = new \ReflectionClass(static::class);
+        $fields = $ref->getProperties(\ReflectionProperty::IS_PUBLIC);
+        $load   = false;
+        foreach ($fields as $field) {
+            if ('amount' === $field->name) {
+                continue;
+            }
+
+            if (array_key_exists($field->name, $data)) {
+                $this->{$field->name} = $data[$field->name];
+                $load                 = true;
+            }
+        }
+
+        return $load;
+    }
+
+    /**
      * @param $password
      *
      * @return bool

@@ -41,4 +41,11 @@ interface ModelInterface extends ComponentInterface
      * @return array
      */
     public function getAttribs(): array;
+
+    /**
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function load(array $data): bool;
 }

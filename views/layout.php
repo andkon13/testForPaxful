@@ -41,6 +41,8 @@ use classes\App;
                 </ul>
             <?php else: ?>
                 <ul class="nav navbar-nav navbar-right">
+                    <li><?= App::getInstance()->getUser()->username ?> </li>
+                    <li>Amount: <?= App::getInstance()->getUser()->amount ?></li>
                     <li><a href="/user/logout">Logout</a></li>
                 </ul>
             <?php endif; ?>

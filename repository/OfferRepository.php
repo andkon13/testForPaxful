@@ -24,12 +24,13 @@ class OfferRepository extends BaseRepository implements RepositoryInterface
     public function getList()
     {
         $app = App::getInstance();
-        $sql = 'SELECT *, margin * 3000 * c.rate AS price FROM ' . $this->table . ' o '
+        $sql = 'SELECT *, margin * 3000 * c.rate AS price, margin * c.rate * min as cost'
+        .' FROM ' . $this->table . ' o '
             . 'JOIN `' . $app->userRepository->table . '` u ON o.user_id=u.id'
             . ' JOIN `' . $app->currencyRepository->table . '` c ON o.currency_id=c.id';
 
         $res = $app->db->getResult($sql);
 
-        return $res->fetchAll();
+        return $res->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

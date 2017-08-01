@@ -169,4 +169,16 @@ class App
 
         return session_destroy();
     }
+
+    /**
+     * @return User|null
+     */
+    public function getUser()
+    {
+        if (!$this->isGuest()) {
+            return $this->userRepository->getById($_SESSION['userId']);
+        }
+
+        return null;
+    }
 }

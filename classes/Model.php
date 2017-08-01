@@ -22,6 +22,26 @@ abstract class Model
     protected $errors = [];
 
     /**
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function load(array $data): bool
+    {
+        $ref    = new \ReflectionClass(static::class);
+        $fields = $ref->getProperties(\ReflectionProperty::IS_PUBLIC);
+        $load   = false;
+        foreach ($fields as $field) {
+            if (in_array($field->name, $data)) {
+                $this->{$field->name} = $data;
+                $load                 = true;
+            }
+        }
+
+        return $load;
+    }
+
+    /**
      * @return int|null
      */
     public function getId()
